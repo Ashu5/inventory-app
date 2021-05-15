@@ -1,0 +1,33 @@
+.product_page{
+    &__title{
+    display: flex;
+    justify-content: center;
+    font-family: monospace;
+    background-color: #426288;
+    color: ghostwhite;
+    font-size: 20px;
+    }
+
+    &__flex-container {
+        display: flex;
+        background-color: #ffff;
+      }
+    &__flex-container > div {
+        background-color: #f1f1f1;
+        margin: 10px;
+        padding: 15px;
+        height: 180px;
+        flex-basis: 21%;
+      }
+      &__flex-container > div >span {
+        justify-content: center;
+        display: flex;
+        font-family: Tahoma;
+        font-size: 15px;;
+      }
+     
+      &__card--image{
+          height: 70px;
+          width:100%;
+      }
+} 
