@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { ProductManagerComponent } from './components/product-manager/product-manager.component';
 import { ProductComponent } from './components/product/product.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'products',
-    pathMatch: 'full'
+    component: ProductComponent,
+    canActivate: [AuthGuardService] 
 },
 {
   path:'products',
@@ -20,9 +22,13 @@ const routes: Routes = [
 },
 {
   path:'admin',
+  canActivate: [AuthGuardService] ,
   component:ProductManagerComponent
-}
-
+},
+{ path: 'register', 
+component: RegisterComponent 
+},
+{ path: '**', redirectTo: '' }
 
 ];
 

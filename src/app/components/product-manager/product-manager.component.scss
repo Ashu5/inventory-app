@@ -24,6 +24,11 @@
    &__clear-btn{
        margin-left: 10px;
    }
+   &__user{
+       display: flex;
+       justify-content: flex-end;
+       margin-right: 5px;
+   }
 
 }
 .col-form-label{

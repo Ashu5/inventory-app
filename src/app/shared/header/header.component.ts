@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,16 +15,6 @@ public isLoggedIn:boolean=false;
   }
 
   public logAction():void{
-    if(this.isLoggedIn){
-      localStorage.removeItem('user');
-      localStorage.clear();
-      this.router.navigate(['/products']);
-      this.isLoggedIn=!this.isLoggedIn;
-    }else{
-      this.router.navigate(['/login']);
-      this.isLoggedIn=!this.isLoggedIn;
-      
-    }
-    
+    this.router.navigate(['/login']);
   }
 }
