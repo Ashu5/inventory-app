@@ -81,12 +81,14 @@ public ngOnInit(): void {
   }
 
   public onClear():void{
+    this.formMode='ADD';
+    this.isEditable=!this.isEditable;
     this.productFormGroup.reset();
   }
 
   public onDoubleClick():void{
     this.formMode='MODIFY';
-    this.isEditable=true;
+    this.isEditable=!this.isEditable;
    this.selectedData=this.gridApi.getSelectedRows()[0];
    this.updateFormValues(this.selectedData);
   }

@@ -1,4 +1,8 @@
 .grid_contents{
+    &__container{
+        overflow: hidden;
+    }
+   
     width: 100%;
     margin-left: 10%;
     &__clear-btn{
@@ -8,6 +12,17 @@
    &__form{
        display: flex;
        justify-content:center;
+       border: 1px solid #1e1f1f33; 
+        margin: 2%;
+        margin-left: 10%;
+        margin-right: 10%;
+   }
+
+   &__formitem{
+       margin-bottom: 20px;
+   }
+   &__clear-btn{
+       margin-left: 10px;
    }
 
 }
