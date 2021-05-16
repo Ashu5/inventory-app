@@ -1,0 +1,124 @@
+<div class="container">
+  <div class="user-details">
+    <span>
+      <p>
+        Welcome:<strong>{{ user }}</strong>
+      </p>
+    </span>
+  </div>
+
+  <div class="grid_contents">
+    <ag-grid-angular
+      style="width: 80%; height: 240px"
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      (rowDoubleClicked)="onDoubleClick()"
+      [columnDefs]="columnDefs"
+      (gridReady)="onGridReady($event)"
+      rowSelection="single" >
+    </ag-grid-angular>
+  </div>
+  <div class="grid_contents__form " *ngIf="isEditable">
+      <form
+        [formGroup]="productFormGroup"
+        (ngSubmit)="onSubmit()"
+      >
+      <div class="form-group row">
+        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm ">Product Name</label>
+        <div class="col-sm-8">
+            <input
+            type="email"
+            class="form-control"
+            formControlName="name"
+            placeholder="Enter Product Name"
+          />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm ">Product Category</label>
+        <div class="col-sm-8">
+            <select formControlName="category" class="form-select">
+                <option [value]="0" disabled selected>---Select One---</option>
+                <option *ngFor="let category of categories" [value]="category">
+                  {{ category }}
+                </option>
+              </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm ">Description</label>
+        <div class="col-sm-8">
+            <textarea
+            class="form-control"
+            formControlName="description"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm ">Units</label>
+        <div class="col-sm-8">
+            <input
+            type="text"
+            class="form-control"
+            formControlName="units"
+            placeholder="Enter Units"
+          />
+        </div>
+      </div>
+        <!-- <div class="mb-2">
+          <label>Product Name</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="name"
+            placeholder="Enter Product Name"
+          />
+        </div> -->
+        <!-- <div class="mb-2">
+          <label for="exampleFormControlTextarea1" class="form-label"
+            >Product Category</label
+          >
+          <select formControlName="category" class="form-select">
+            <option [value]="0" disabled selected>---Select One---</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
+        </div> -->
+        <!-- <div class="mb-2">
+          <label for="exampleFormControlTextarea1" class="form-label"
+            >Description</label
+          >
+          <textarea
+            class="form-control"
+            formControlName="description"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="mb-2">
+          <label for="exampleFormControlTextarea1" class="form-label"
+            >Units</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="units"
+            placeholder="Enter Units"
+          />
+        </div> -->
+        <div class="mb-2">
+          <button type="submit" class="btn btn-outline-success">Submit</button>
+          <button
+            type="button"
+            class="btn btn-outline-warning grid_contents__clear-btn"
+            (click)="onClear()"
+          >
+            Clear
+          </button>
+        </div>
+      </form>
+
+      
+      </div>
+</div>

@@ -1,0 +1,19 @@
+.grid_contents{
+    width: 100%;
+    margin-left: 10%;
+    &__clear-btn{
+        margin-left: 10px;;
+    }
+
+   &__form{
+       display: flex;
+       justify-content:center;
+   }
+
+}
+.col-form-label{
+    width: 33%;
+}
+.form-group{
+    padding-top: 10px;
+}

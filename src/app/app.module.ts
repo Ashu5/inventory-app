@@ -7,18 +7,24 @@ import { HeaderComponent } from './shared/header/header.component';
 import { ProductComponent } from './components/product/product.component';
 import { UniqueCategoryPipe } from './pipes/unique-category-pipe';
 import { HttpClientModule } from '@angular/common/http';
+import {ReactiveFormsModule }   from '@angular/forms';
+import { ProductManagerComponent } from './components/product-manager/product-manager.component';
+import { AgGridModule } from 'ag-grid-angular';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HeaderComponent,
     ProductComponent,
-    UniqueCategoryPipe
+    UniqueCategoryPipe,
+    ProductManagerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]
