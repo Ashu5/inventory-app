@@ -4,39 +4,29 @@
       <h3> Products</h3>
     </div>
   </div>
+
+ 
+    <div class="product_page__dropdown dropdown col-sm-3">
+      <select  (change)="onSelectionChange($event)" class="form-select">
+        <option [value]="0" selected>---Filter---</option>
+        <option *ngFor="let category of categories"
+        [value]="category">{{category}}
+      </option>
+      </select>
+      <button class="btn btn-primary" (click)="onClear()">Clear</button>
+    </div>
   
+   
 
+<!-- cards-->
   <div class="product_page__flex-container">
-
-  <div class="product_page__card" *ngFor="let item of items">
-    <span
-    ><img class="product_page__card--image" [src]="imageSources">
-  </span>
-   <span > {{item.name}}</span>
-   <span >{{item.description}}</span>
-   <span >{{item.unit}}</span>
-  </div>
+    <div class="product_page__card" *ngFor="let item of filterdProducts ;let i=index">
+      <span><img class="product_page__card--image" [src]="imageSources[i]">
+      </span>
+      <span> {{item.productName}}</span>
+      <span>{{item.description}}</span>
+      <span>{{item.unit}}</span>
+    </div>
   </div>
 
-<!-- 
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </div>

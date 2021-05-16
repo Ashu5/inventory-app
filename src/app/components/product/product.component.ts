@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ProductModel } from 'src/app/models/product.model';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -7,47 +10,67 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
-  constructor() { }
- public items:any[]=[];
- public imageSources:string='';
-  public ngOnInit(): void {
+constructor(private productService:ProductService) { }
+ public products:ProductModel[]=[];
+ public imageSources:string[]=[];
+ public categories:string[]=['Commercial','Space','Helicopter'];
+ public filterdProducts:ProductModel[]=[];
 
-    this.items.push({
-      id:1,
-      name:"A320",
-      description:"Passenger Aircraft",
-      unit:10
-    },
-    {
-      id:2,
-      name:"A380",
-      description:"Passenger Aircraft",
-      unit:13
-    })
 
-    this.getImageSources();
- 
-  }
-  public getImageSources() {
-    this.items.forEach((item:any)=>{
-      this.imageSources=item.name;
-    })
-     switch(this.imageSources){
-       case "A380":{
-       this.imageSources= '../../../assets/A380.png';
-       break;
-       }
-       case "A320":{
-         this.imageSources= '../../../assets/A320.png';
-         break;
-         }
-         default:{
-           this.imageSources='../../../assets/AIRBUS_Blue.png'
-         }
-   
-   
-     }
+ public ngOnInit(): void {
+ this.getInitData();
+
   }
 
+
+  public getInitData() {
+    this.productService.getData().subscribe((res:ProductModel[])=>{
+      this.products=res;
+      this.filterdProducts=[...this.products];
+      this.getImageSources(this.products);
+    })
+  }
+
+
+  public getImageSources(items:ProductModel[]) {
+    items.forEach((item:any)=>{
+      switch(item.productName){
+        case "A380":{
+        this.imageSources.push('../../../assets/A380.png');
+        break;
+        }
+        case "A320":{
+          this.imageSources.push('../../../assets/A320.png');
+          break;
+          }
+          case "H125":{
+           this.imageSources.push('../../../assets/H125.png');
+           break;
+           }
+           case "Sentinel":{
+            this.imageSources.push('../../../assets/Sentinel.png');
+            break;
+            }
+          default:{
+            this.imageSources.push('../../../assets/AIRBUS_Blue.png');
+          }
+      }
+    })
+  }
+
+  public onSelectionChange(event:any){
+    const selectedItem:string=event.target.value;
+    this.filterdProducts= this.products.filter(
+      (items: ProductModel): any => {
+       return items.category===selectedItem;
+      }
+    );
+    this.getImageSources(this.filterdProducts);
+  
+  }
+
+  public onClear():void{
+    this.filterdProducts=[...this.products];
+  }
 
 }

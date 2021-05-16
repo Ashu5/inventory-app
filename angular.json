@@ -24,7 +24,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/favicon.png",
               "src/styles.scss"
             ],
             "scripts": []
