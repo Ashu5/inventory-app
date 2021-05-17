@@ -28,8 +28,15 @@
        display: flex;
        justify-content: flex-end;
        margin-right: 5px;
+       height: 20px;
    }
 
+   &__refresh_btn{
+       margin-left: 10%;
+   }
+   &__delete_btn{
+    margin-left: 10px;
+}
 }
 .col-form-label{
     width: 33%;

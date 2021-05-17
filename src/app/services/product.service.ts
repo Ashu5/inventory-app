@@ -15,4 +15,26 @@ export class ProductService {
    public getData():Observable<any>{
      return this.http.get(environment.baseURL+"getProducts");
    }
+
+   public saveProduct(product:ProductModel):Observable<any>{
+     return this.http.post(environment.baseURL+"addProduct",JSON.stringify(product),
+     {
+      headers:
+        { 'Content-Type': 'application/json' }
+    }); 
+    }
+
+    public updateProduct(id:string,product:ProductModel):Observable<any>{
+      return this.http.put(environment.baseURL+"updateProduct/"+id,JSON.stringify(product),{
+        headers:
+          { 'Content-Type': 'application/json' }
+      });
+    }
+
+    public deleteProduct(id:string):Observable<any>{
+      return this.http.delete(environment.baseURL+"deleteProductById/"+id,{
+        headers:
+          { 'Content-Type': 'application/json' }
+      });
+    }
 }
