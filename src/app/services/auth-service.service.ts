@@ -41,4 +41,9 @@ public logout() {
   localStorage.removeItem('user');
   this.currentUserSubject.next(null);
 }
+
+public isUserLoggedIn():boolean {
+  let user = localStorage.getItem('currentUser');
+  return !(user === null)
+}
 }

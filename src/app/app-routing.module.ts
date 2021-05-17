@@ -5,6 +5,7 @@ import { ProductManagerComponent } from './components/product-manager/product-ma
 import { ProductComponent } from './components/product/product.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { LogoutComponent } from './shared/logout/logout.component';
 
 const routes: Routes = [
   {
@@ -17,10 +18,6 @@ const routes: Routes = [
   component:ProductComponent
 },
 {
-  path:'login',
-  component:LoginComponent
-},
-{
   path:'admin',
   canActivate: [AuthGuardService] ,
   component:ProductManagerComponent
@@ -28,7 +25,18 @@ const routes: Routes = [
 { path: 'register', 
 component: RegisterComponent 
 },
-{ path: '**', redirectTo: '' }
+{
+  path:'login',
+  component:LoginComponent
+},
+{
+  path:'logout',
+  canActivate: [AuthGuardService] ,
+  component:LogoutComponent
+},
+{ path: '**', 
+redirectTo: '' 
+}
 
 ];
 

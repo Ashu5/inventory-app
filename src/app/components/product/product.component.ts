@@ -51,7 +51,7 @@ constructor(private productService:ProductService) { }
             break;
             }
           default:{
-            this.imageSources.push('../../../assets/AIRBUS_Blue.png');
+            this.imageSources.push('../../../assets/AIRBUS_Black.png');
           }
       }
     })

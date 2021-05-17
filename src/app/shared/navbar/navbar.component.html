@@ -1,6 +1,19 @@
-<nav class="navbar navbar-expand" >
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/">Home</a>
-        <a class="nav-item nav-link btn btn-outline-danger" (click)="logout()">Logout</a>
-    </div>
-</nav>
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div>
+            <a class="navbar-brand" href="#">
+                <img src="../../../assets/AIRBUS_Blue.png" alt="" width="150" height="50">
+            </a>
+        </div>
+
+        <ul class="navbar-nav">
+            <li><a  routerLink="" class="nav-link">Home</a></li>
+        </ul>
+
+        <ul class="navbar-nav navbar-collapse justify-content-end">
+                <li><a  *ngIf="!authService.isUserLoggedIn()" [routerLink]="'/login'" class="nav-link btn-outline-success">Login</a></li>
+                <li><a   *ngIf="authService.isUserLoggedIn()"[routerLink]="['/logout']" class="nav-link btn btn-outline-danger">Logout</a></li>
+        </ul>
+    </nav>
+</header>

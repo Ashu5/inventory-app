@@ -14,11 +14,12 @@
         background-color: #ffff;
       }
     &__flex-container > div {
-        background-color: #f1f1f1;
+        background-color: #cacaca80;
         margin: 10px;
         padding: 15px;
         height: 180px;
         flex-basis: 21%;
+        color: #0c0404;
       }
       &__flex-container > div >span {
         justify-content: center;
