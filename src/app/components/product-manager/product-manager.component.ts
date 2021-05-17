@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ColDef } from 'ag-grid-community';
 import { Observable } from 'rxjs';
@@ -33,7 +33,7 @@ public ngOnInit(): void {
  this.initForms();
  this.getData();
  this.columnDefs = [
-  { headerName:"ID", field: 'productId'},
+  { headerName:"ID", field: 'id'},
   { headerName:"Name", field: 'productName'},
   { headerName: 'Category',field:'category'},
   { headerName: 'Description',field:'description'},
@@ -93,7 +93,7 @@ public ngOnInit(): void {
    this.updateFormValues(this.selectedData);
   }
   
-  onGridReady(params) {
+  public onGridReady(params) {
     this.gridApi = params.api;
   }
 }

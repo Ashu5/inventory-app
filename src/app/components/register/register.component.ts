@@ -11,9 +11,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
-  loading = false;
-  submitted = false;
+  public registerForm: FormGroup;
+  public loading = false;
+  public submitted = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -27,11 +27,11 @@ export class RegisterComponent implements OnInit {
       }
   }
 
-  ngOnInit() {
+  public ngOnInit():void {
       this.registerForm = this.formBuilder.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          username: ['', Validators.required],
+          fname: ['', Validators.required],
+          lname: ['', Validators.required],
+          email: ['', Validators.required],
           password: ['', [Validators.required, Validators.minLength(6)]]
       });
   }
@@ -42,11 +42,9 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
       this.submitted = true;
 
-      // stop here if form is invalid
       if (this.registerForm.invalid) {
           return;
       }
-
       this.loading = true;
       this.userService.register(this.registerForm.value)
           .pipe(first())
@@ -56,7 +54,8 @@ export class RegisterComponent implements OnInit {
                   this.router.navigate(['/login']);
               },
               error => {
-                  window.alert(error);
+                  window.alert("Error Occured"+error);
+                  this.loading = false;
               });
   }
 }
