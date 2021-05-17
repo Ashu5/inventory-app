@@ -43,12 +43,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
   }
-
-  this.authenticationService.login(this.f.email.value, this.f.password.value)
+  const email:string=this.f.email.value;
+  const password:string= this.f.password.value;
+  this.authenticationService.login(email,password)
             .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate(['/admin']);
+            .subscribe(data => {
+                this.router.navigate(['/admin']);  
                 },
                 error => {
                     window.alert("Error Occured"+error);

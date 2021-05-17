@@ -24,10 +24,12 @@ export class AuthServiceService {
 public login(email: string, password: string) {
   return this.http.get<any>(environment.baseURL+"getUser/"+email+"/"+password)
       .pipe(map(user => {
-          if (user) { 
+          if (user!==null && email===user.email && password===user.password) { 
             localStorage.setItem('currentUser', JSON.stringify(user));
             localStorage.setItem('user', JSON.stringify(user.fname));
               this.currentUserSubject.next(user);
+          }else{
+            window.alert("Invalid Credential")
           }
 
           return user;
