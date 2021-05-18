@@ -11,6 +11,10 @@ import { AgGridModule } from 'ag-grid-angular';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LogoutComponent } from './shared/logout/logout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './shared/dialog/dialog.component';
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,14 +23,19 @@ import { LogoutComponent } from './shared/logout/logout.component';
     ProductManagerComponent,
     NavbarComponent,
     RegisterComponent,
-    LogoutComponent
+    LogoutComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -44,7 +44,10 @@
             maxlength="15"
             formControlName="productName"
             placeholder="Enter Product Name"
-          />
+            [ngClass]="{ 'is-invalid': submitted && getFormControls.productName.errors }" />
+          <div *ngIf="submitted && getFormControls.productName.errors" class="invalid-feedback">
+            <div *ngIf="getFormControls.productName.errors.required">ProductName is required</div>
+        </div>
         </div>
       </div>
       <div class="form-group row">
@@ -54,12 +57,16 @@
           >Product Category</label
         >
         <div class="col-sm-8">
-          <select formControlName="category" class="form-select">
+          <select formControlName="category" class="form-select"  [ngClass]="{ 'is-invalid': submitted && getFormControls.category.errors }" >
             <option [value]="0" disabled selected>---Select One---</option>
             <option *ngFor="let category of categories" [value]="category">
               {{ category }}
             </option>
+            
           </select>
+          <div *ngIf="submitted && getFormControls.category.errors" class="invalid-feedback">
+            <div *ngIf="getFormControls.category.errors.required">Category is required</div>
+        </div>
         </div>
       </div>
       <div class="form-group row">
@@ -69,12 +76,17 @@
           >Description</label
         >
         <div class="col-sm-8">
-          <textarea
+          <textarea  
             class="form-control"
             formControlName="description"
             rows="3"
+            [ngClass]="{ 'is-invalid': submitted && getFormControls.description.errors }"
           ></textarea>
+          <div *ngIf="submitted && getFormControls.description.errors" class="invalid-feedback">
+           <div *ngIf="getFormControls.description.errors.required">Description is required</div>
         </div>
+       
+      </div>
       </div>
       <div class="form-group row">
         <label
@@ -88,8 +100,13 @@
             class="form-control"
             formControlName="unit"
             placeholder="Enter Units"
+            [ngClass]="{ 'is-invalid': submitted && getFormControls.unit.errors }"
           />
+          <div *ngIf="submitted && getFormControls.unit.errors" class="invalid-feedback">
+          <div *ngIf="getFormControls.unit.errors.required">Unit is required</div>
         </div>
+        
+      </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-8 offset-sm-5">

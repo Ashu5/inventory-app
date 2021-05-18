@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColDef } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { ProductModel } from 'src/app/models/product.model';
+import { DialogService } from 'src/app/services/dialog.service';
 import { ProductService } from 'src/app/services/product.service';
-
+export const ADMIN_TITLE:string="Admin Panel";
 @Component({
   selector: 'app-product-manager',
   templateUrl: './product-manager.component.html',
   styleUrls: ['./product-manager.component.scss'],
 })
+
 export class ProductManagerComponent implements OnInit {
   public user: string;
   public categories: string[] = ['Commercial', 'Space', 'Helicopter'];
@@ -24,12 +26,14 @@ export class ProductManagerComponent implements OnInit {
   public gridApi!: any;
   public selectedData!: ProductModel;
   public productId!: string;
+  public submitted:boolean = false;
   get getFormControls() {
     return this.productFormGroup.controls;
   }
   constructor(
     private fb: FormBuilder,
-    private productService: ProductService
+    private productService: ProductService,
+    private dialogService:DialogService
   ) {}
 
   public ngOnInit(): void {
@@ -47,10 +51,10 @@ export class ProductManagerComponent implements OnInit {
 
   public initForms(): void {
     this.productFormGroup = this.fb.group({
-      productName: '',
-      category: [],
-      description: '',
-      unit: '',
+      productName:  ['', Validators.required],
+      category: ['', Validators.required],
+      description:  ['', Validators.required],
+      unit:  ['', Validators.required],
     });
   }
 
@@ -74,14 +78,16 @@ export class ProductManagerComponent implements OnInit {
   }
 
   public onSubmit() {
+    this.submitted = true;
     if (this.productFormGroup.invalid) {
       return;
-    }
+    } 
     if (this.formMode === 'ADD') {
       this.saveData();
     } else {
       this.updateExistingProduct(this.productFormGroup.value);
     }
+    this.onClear();
   }
 
   public saveData(): void {
@@ -90,11 +96,12 @@ export class ProductManagerComponent implements OnInit {
       .pipe(first())
       .subscribe((response: ProductModel) => {
         if (response !== null) {
-          window.alert('Product Added');
+          this.showDialog("Product Added SuccessFully");
         } else {
-          window.alert('Error Occured');
+          this.showDialog("Product Not Added");
         }
       });
+      this.onClear();
   }
 
   public updateExistingProduct(product: ProductModel): void {
@@ -103,16 +110,18 @@ export class ProductManagerComponent implements OnInit {
       .pipe(first())
       .subscribe((response: ProductModel): void => {
         if (response !== null) {
-          window.alert('Product Updated');
+          this.showDialog("Product Updated");
         } else {
-          window.alert('Error Occured While Update');
+          this.showDialog("Product Not Updated");
         }
       });
   }
 
   public onClear(): void {
     this.formMode = 'ADD';
-    this.isEditable = !this.isEditable;
+    if(!this.productFormGroup.invalid){
+      this.isEditable = !this.isEditable;
+    }
     this.productFormGroup.reset();
   }
 
@@ -134,6 +143,9 @@ export class ProductManagerComponent implements OnInit {
 
   public removeRow(): void {
     let focusedNode = this.gridApi.getSelectedRows()[0];
+    if(focusedNode==null){
+      this.showDialog("Select a row to delete");
+    }
     let newRowData = this.rowData.filter((row) => {
       return row !== focusedNode;
     });
@@ -148,12 +160,16 @@ export class ProductManagerComponent implements OnInit {
       .subscribe(
         (response: any): void => {
           if (response === null) {
-            window.alert('Deleted Product' + response.id);
+            this.showDialog("Deleted Row:"+id);
           }
         },
         (error) => {
-          window.alert('Error Deleting' + error);
+          this.showDialog("Error Occured");
         }
       );
+  }
+
+  public showDialog(message:string):void{
+    this.dialogService.openDialog(ADMIN_TITLE,message);
   }
 }
