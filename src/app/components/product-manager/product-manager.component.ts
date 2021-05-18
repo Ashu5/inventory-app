@@ -15,7 +15,7 @@ export class ProductManagerComponent implements OnInit {
   public user: string;
   public categories: string[] = ['Commercial', 'Space', 'Helicopter'];
   public productFormGroup: FormGroup;
-  public formMode: string = 'MODIFY';
+  public formMode: string = 'ADD';
   public category$: Observable<string>;
   public productData!: ProductModel;
   public columnDefs!: ColDef[];
@@ -55,15 +55,12 @@ export class ProductManagerComponent implements OnInit {
   }
 
   public getData(): void {
-    if (!this.formMode || this.formMode === 'ADD') {
-      return;
-    }
     this.productService.getData().subscribe((response: ProductModel[]) => {
       response.forEach((item: ProductModel) => {
         this.productData = item;
       });
       this.rowData = response;
-      //this.updateFormValues();
+
     });
   }
 
