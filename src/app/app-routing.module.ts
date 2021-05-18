@@ -10,8 +10,7 @@ import { LogoutComponent } from './shared/logout/logout.component';
 const routes: Routes = [
   {
     path: '',
-    component: ProductComponent,
-    canActivate: [AuthGuardService] 
+    component: ProductComponent
 },
 {
   path:'products',

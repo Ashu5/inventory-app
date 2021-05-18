@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   this.authenticationService.login(email,password)
             .pipe(first())
             .subscribe(data => {
-                this.router.navigate(['/admin']);  
+                this.router.navigate(['']);  
                 },
                 error => {
                     window.alert("Error Occured"+error);
