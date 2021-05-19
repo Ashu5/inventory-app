@@ -31,6 +31,7 @@ constructor(private productService:ProductService) { }
 
 
   public getImageSources(items:ProductModel[]) {
+    this.imageSources=[];
     items.forEach((item:any)=>{
       switch(item.productName){
         case "A380":{
@@ -69,6 +70,7 @@ constructor(private productService:ProductService) { }
 
   public onClear():void{
     this.filterdProducts=[...this.products];
+    this.getImageSources(this.filterdProducts);
   }
 
 }
