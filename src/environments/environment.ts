@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL: 'http://localhost:5000/api/'
+  baseURL: 'http://inventoryappservices-env.eba-beicpdws.us-east-1.elasticbeanstalk.com/api/'
 };
 
 /*
