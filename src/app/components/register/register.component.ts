@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { DialogService } from 'src/app/services/dialog.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class RegisterComponent implements OnInit {
       private router: Router,
       private authenticationService: AuthServiceService,
       private userService: UserService,
+      private dialogService:DialogService
   ) { 
       // redirect to home if already logged in
       if (this.authenticationService.currentUserValue) { 
@@ -50,11 +52,11 @@ export class RegisterComponent implements OnInit {
           .pipe(first())
           .subscribe(
               data => {
-                  window.alert('Registration successful');
+                 this.dialogService.openDialog("Login Page","Registration Successful");
                   this.router.navigate(['/login']);
               },
               error => {
-                  window.alert("Error Occured"+error);
+                this.dialogService.openDialog("Login Page","Error Occured"+error);
                   this.loading = false;
               });
   }

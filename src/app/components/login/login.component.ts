@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthServiceService,) { 
+    private authenticationService: AuthServiceService,
+    private dialogService:DialogService) { 
 
       if (this.authenticationService.currentUserValue) { 
         this.router.navigate(['/']);
@@ -48,10 +50,13 @@ export class LoginComponent implements OnInit {
   this.authenticationService.login(email,password)
             .pipe(first())
             .subscribe(data => {
-                this.router.navigate(['']);  
+              if(data!==null){
+                this.router.navigate(['']); 
+              }
                 },
                 error => {
-                    window.alert("Error Occured"+error);
+                  if(error.status='500')
+                  this.dialogService.openDialog("Login Page","Invalid Credentials");
                 });
     }
   }
