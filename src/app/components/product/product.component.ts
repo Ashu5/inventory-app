@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProductModel } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -9,17 +10,23 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductComponent implements OnInit {
 
-constructor(private productService:ProductService) { }
+constructor(private productService:ProductService,private fb:FormBuilder) { }
  public products:ProductModel[]=[];
  public imageSources:string[]=[];
  public categories:string[]=['Commercial','Space','Helicopter'];
  public filterdProducts:ProductModel[]=[];
-
+ public formGroup:FormGroup;
 
  public ngOnInit(): void {
  this.getInitData();
+ this.initForm();
   }
 
+  public initForm():void{
+    this.formGroup=this.fb.group({
+      category:'-1'
+    })
+  }
 
   public getInitData() {
     this.productService.getData().subscribe((res:ProductModel[])=>{
@@ -65,12 +72,12 @@ constructor(private productService:ProductService) { }
       }
     );
     this.getImageSources(this.filterdProducts);
-  
   }
 
   public onClear():void{
     this.filterdProducts=[...this.products];
     this.getImageSources(this.filterdProducts);
+    this.formGroup.reset();
   }
 
 }

@@ -4,17 +4,19 @@
       <h3> Products</h3>
     </div>
   </div>
-
-  <div class="product_page__dropdown dropdown col-sm-3">
-    <select  (change)="onSelectionChange($event)" class="form-select">
-      <option [value]="0" selected>---Filter---</option>
+<form [formGroup]="formGroup">
+  <div  class="product_page__dropdown dropdown col-sm-3">
+    <select formControlName="category" (change)="onSelectionChange($event)" class="form-select">
+      <option [value]="-1" selected>---Select One---</option>
       <option *ngFor="let category of categories"
       [value]="category">{{category}}
     </option>
     </select>
-  <span> <button class="btn btn-outline-success" (click)="onClear()">Clear</button></span>  
+  <span> <button type="reset" class="btn btn-outline-success" (click)="onClear()">Clear</button></span>  
  
   </div>
+</form>
+  
 
 <!-- cards-->
   <div class="product_page__flex-container">
