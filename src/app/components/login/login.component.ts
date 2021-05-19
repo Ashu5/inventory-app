@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public submitted = false;
   public password:string;
-   public returnUrl: string;
+  public returnUrl: string;
 
 
   constructor( 
@@ -45,17 +45,17 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
   }
-  const email:string=this.f.email.value;
-  const password:string= this.f.password.value;
-  this.authenticationService.login(email,password)
+
+  this.authenticationService.login(this.loginForm.value)
             .pipe(first())
             .subscribe(data => {
               if(data!==null){
+                this.authenticationService.storeToken(data.jwt);
                 this.router.navigate(['']); 
               }
                 },
                 error => {
-                  if(error.status='500')
+                  if(error)
                   this.dialogService.openDialog("Login Page","Invalid Credentials");
                 });
     }

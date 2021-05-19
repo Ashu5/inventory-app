@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProductComponent } from './components/product/product.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {ReactiveFormsModule }   from '@angular/forms';
 import { ProductManagerComponent } from './components/product-manager/product-manager.component';
 import { AgGridModule } from 'ag-grid-angular';
@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import {MatButtonModule} from '@angular/material/button';
+import { AuthIntercepterService } from './services/auth-intercepter.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,11 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule,
   
   ],
-  providers: [],
+  providers: [{
+    provide : HTTP_INTERCEPTORS,
+    useClass: AuthIntercepterService,
+    multi   : true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
